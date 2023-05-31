@@ -4,6 +4,12 @@ export type ExpectFalse<T extends false> = T
 export type IsTrue<T extends true> = T
 export type IsFalse<T extends false> = T
 
+/**
+ * 原理是当条件类型中的 T 未知时，会延迟到调用时进行判断，判断时会调用 TypeScript 内部的 isTypeIdenticalTo 方法。
+ * 当且仅当两个条件类型满足如下条件时返回 true：
+ * - 两个条件类型的约束（constraint）相同
+ * - 两个条件类型的 true / false 分支值相同
+ */
 export type Equal<X, Y> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2
   ? true
   : false
